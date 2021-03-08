@@ -1,0 +1,33 @@
+<h2 style="margin-left: 30px !important; margin-right: 30px !important;" mat-dialog-title>Clase</h2>
+<form [formGroup]="myForm" novalidate>
+<mat-dialog-content>
+    <div class="row">
+      <div class="col-md-12">
+          <mat-form-field class="example-full-width">
+            <mat-label>Código</mat-label>
+            <input matInput formControlName="vCodigo" name="vCodigo" [(ngModel)]="claseDto.codigo" placeholder="Código">
+          </mat-form-field>
+          <app-print-error [control]="f.vCodigo"></app-print-error>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="example-full-width">
+          <mat-label>Título</mat-label>
+          <input matInput formControlName="vTitulo" name="vTitulo" [(ngModel)]="claseDto.titulo" placeholder="Título">
+        </mat-form-field>
+        <app-print-error [control]="f.vTitulo"></app-print-error>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="example-full-width">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput formControlName="vDescripcion" name="vDescripcion" [(ngModel)]="claseDto.descripcion" ></textarea>
+        </mat-form-field>
+        <app-print-error [control]="f.vDescripcion"></app-print-error>
+      </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-flat-button (click)="registrarClase()" color="primary" [disabled]="myForm.invalid || !myForm.dirty" cdkFocusInitial>Guardar</button>
+</mat-dialog-actions>
+</form>
+

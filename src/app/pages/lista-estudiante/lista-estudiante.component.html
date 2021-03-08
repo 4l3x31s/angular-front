@@ -1,0 +1,157 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">S4</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Estudiante <span class="sr-only"></span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <div class="row">
+          <div class="col-6">
+            <h4 class="card-title">Lista de Estudiantes Registrados</h4>
+          </div>
+          <div class="col-6">
+            <button mat-raised-button color="primary" (click)="registrarEstudiante()"  class="ml-auto d-flex" mat-stroked-button ><mat-icon>add</mat-icon>Adicionar</button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="lstEstudiante.length <= 0" class="card-body">
+        <div class="row">
+          No existen registros.
+        </div>
+
+      </div>
+      <div *ngIf="lstEstudiante.length > 0" class="card-body">
+        <div class="row">
+          <div class="col-4 ml-auto">
+            <mat-form-field>
+              <mat-label color="accent">Buscar</mat-label>
+              <input matInput (keyup)="applyFilter($event)" color="accent" placeholder="" #input>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort class="table table-hover">
+              <!-- ID Column -->
+              <ng-container matColumnDef="idEstudiante">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class=" text-primary"> Nro. </th>
+                <td mat-cell *matCellDef="let row" (click)="cargarClases(row)"> {{row.idEstudiante}} </td>
+              </ng-container>
+              <!-- Name Column -->
+              <ng-container matColumnDef="identificacionEstudiante">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class=" text-primary"> Identificación Estudiante </th>
+                <td mat-cell *matCellDef="let row" (click)="cargarClases(row)"> {{row.identificacionEstudiante}} </td>
+              </ng-container>
+              <!-- Color Column -->
+              <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class=" text-primary"> Nombre </th>
+                <td mat-cell *matCellDef="let row" (click)="cargarClases(row)"> {{row.nombre}}</td>
+              </ng-container>
+              <!-- Color Column -->
+              <ng-container matColumnDef="apellido">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class=" text-primary"> Apellido </th>
+                <td mat-cell *matCellDef="let row" (click)="cargarClases(row)"> {{row.apellido}}</td>
+              </ng-container>
+              <ng-container matColumnDef="operaciones">
+                <th mat-header-cell *matHeaderCellDef class=" text-primary"> Operaciones </th>
+                <td mat-cell *matCellDef="let row" >
+                  <button mat-icon-button (click)="eliminarClase(row)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                  <button mat-icon-button (click)="modificarClase(row)">
+                    <mat-icon>mode_edit</mat-icon>
+                  </button>
+                  <button mat-icon-button (click)="asignarClase(row)">
+                    <mat-icon>class</mat-icon>
+                  </button>
+
+                </td>
+              </ng-container>
+              <!-- Color Column -->
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <!-- Row shown when there is no matching data. -->
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+              </tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+---------------------------------------------------------------------------------------------
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <div class="row">
+          <div class="col-6">
+            <h4 class="card-title">Lista de Clases Registradas</h4>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="lstClase.length <= 0" class="card-body">
+        <div class="row">
+          No existen registros.
+        </div>
+
+      </div>
+      <div *ngIf="lstClase.length > 0" class="card-body">
+        <div class="row">
+          <div class="col-4 ml-auto">
+            <mat-form-field>
+              <mat-label color="accent">Buscar</mat-label>
+              <input matInput (keyup)="applyFilter($event)" color="accent" placeholder="" #input>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <div class="mat-elevation-z8">
+            <table class="table" style="width:100%">
+              <thead>
+                <tr>
+                  <th scope="row">Nro.</th>
+                  <th scope="row">Código</th>
+                  <th scope="row">Título</th>
+                  <th scope="row">Descripción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of lstClase">
+                  <td scope="row">{{item.id_clase}}</td>
+                  <td>{{item.codigo}}</td>
+                  <td>{{item.titulo}}</td>
+                  <td>{{item.descripcion}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
