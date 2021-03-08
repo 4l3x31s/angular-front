@@ -9,7 +9,7 @@ export class ApiService {
   url: string;
   constructor(public http: HttpClient) {
 
-    this.url = 'http://localhost:3000';
+    this.url = 'http://172.50.0.6:3000';
   }
   getGlobal<Object>(url: string) {
     return this.http.get<Object>(this.url + url);
